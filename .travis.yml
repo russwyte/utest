@@ -1,8 +1,17 @@
 language: scala
+sudo: required
+dist: trusty
+addons:
+  apt:
+    update: true
+
+before_script:
+  - git fetch --tags
+
 jdk:
-- oraclejdk8
-- openjdk7
-scala:
-  - 2.10.4
-  - 2.11.5
-  - 2.12.0-M3
+  - oraclejdk8
+
+script:
+  - curl https://raw.githubusercontent.com/scala-native/scala-native/b7851c4dc2a22c9fd9202aea3d97e2a68910b918/scripts/travis_setup.sh | bash -x
+  - ./mill -i __.__.test
+
